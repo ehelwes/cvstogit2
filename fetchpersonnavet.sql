@@ -1,4 +1,5 @@
-drop procedure fetchpersonnavet;
+DROP procedure fetchpersonnavet;
+
 create procedure fetchpersonnavet(
        p_persnr varchar(12))
 	RETURNING
@@ -33,8 +34,7 @@ create procedure fetchpersonnavet(
 	CHAR(1),	--p_status			26 nytt 20040402 HW
 	varchar(8);	--p_avregisteringsdatum		27 nytt 20050215 Perre
 
---@(#)$Id: fetchpersonnavet.sql,v 1.1 2006/08/24 08:56:34 ovew Exp $
-
+--@(#)$Id: fetchpersonnavet.sql,v 1.2 2006/08/24 13:05:31 ovew Exp $
 	                                                                     
 -- Skapat av: Henric wollert                    
 -- Datum: 2003-10-02                            
@@ -44,6 +44,8 @@ create procedure fetchpersonnavet(
 -- Tabeller: tbasperson, tkyrkoperson, tadress.
 -- Sökbegr: Personnummer.
 -- Retur: 23 parametrar.
+--Ändrat:2006-06-19 SL Bug 1318 Ändrat så att man ej returnerar null i några fält, förutom datumfältet civilståndsdatum,
+--kyrkotillhorighetsdatum och avregisteringsdatum.
 
 --Returparametrar
 DEFINE p_svar				INTEGER;		--1  
@@ -133,9 +135,9 @@ LET p_fastighet			=" ";
 LET p_avregistreringsorsak	=" ";
 LET p_fblkf			=" ";
 LET p_kyrkolkf			=" ";
-LET p_kyrkotillhorighetsdatum	=" ";
+LET p_kyrkotillhorighetsdatum	= NULL;
 LET p_medlemstyp		=" ";
-LET p_andraddatum		=" ";
+LET p_andraddatum		=NULL;
 LET p_adresstyp              	=" ";
 LET p_coadress               	=" ";
 LET p_adress1                	=" ";
@@ -147,6 +149,7 @@ LET p_land                   	=" ";
 LET p_civilstandsdatum		=NULL;
 LET p_civilstand		=" ";	
 LET p_avregisteringsdatum       =NULL; -- Perre 20050215
+LET p_status                   	=" ";
 
 --tempvariabler
 LET p_personid			=0;
@@ -200,6 +203,10 @@ FROM	tbasperson bp,
 WHERE	bp.personid = kp.personid
 AND	bp.persnr = p_persnr;
 
+IF(p_arskyddad is NULL) THEN 
+	LET p_arskyddad	=" ";
+END IF;
+
 IF(p_tilltalsnamn is NULL) THEN 
 	LET p_tilltalsnamn = " "; 
 END IF;
@@ -229,6 +236,14 @@ IF(p_fblkf is NULL) THEN
 END IF;
 IF(p_kyrkolkf is NULL) THEN 
 	LET p_kyrkolkf = " "; 
+END IF;
+
+IF(p_medlemstyp is NULL) THEN 
+	LET p_medlemstyp = " "; 
+END IF;
+
+IF(p_civilstand is NULL) THEN 
+	LET p_civilstand = " "; 
 END IF;
 
 IF ( (DBINFO("SQLCA.sqlerrd2") != 1) OR (p_avregistreringsorsak='GN') ) THEN 
@@ -358,6 +373,9 @@ ELSE
 		AND 	k.kod != 'T1'
 		ORDER BY k.sortnr
 
+		IF(p_adresstyp is NULL OR p_adresstyp= '') THEN 
+			LET p_adresstyp = " "; 
+		END IF;	
 		IF(p_coadress is NULL OR p_coadress= '') THEN 
 			LET p_coadress = " "; 
 		END IF;	
@@ -379,7 +397,7 @@ ELSE
 		IF(p_land is NULL OR p_land ='') THEN 
 			LET p_land = " "; 
 		END IF;
-		LET p_kontroll = 1;
+		LET p_kontroll = 1;		
 
 	RETURN	p_svar,			        --1     
 		p_arskyddad,		        --2 	
@@ -447,7 +465,10 @@ ELSE
 END IF;                         
         	
 -- $Log: fetchpersonnavet.sql,v $
+-- Revision 1.2  2006/08/24 13:05:31  ovew
+-- k1318
+--
 -- Revision 1.1  2006/08/24 08:56:34  ovew
 -- knavet1.2 051220
 --
-END PROCEDURE;
+END PROCEDURE;  

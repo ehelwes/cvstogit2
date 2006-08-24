@@ -1,4 +1,5 @@
 DROP PROCEDURE knavetfetchbehorigheter;
+
 CREATE PROCEDURE knavetfetchbehorigheter
 	(p_loginnamn char(10),	
 	p_losenord varchar(32,1),
@@ -17,14 +18,15 @@ CREATE PROCEDURE knavetfetchbehorigheter
         varchar(60),                    --p_enamn,	        
         varchar(10);                    --"OK";		        
 
---@(#)$Id: knavetfetchbehorigheter.sql,v 1.1 2006/08/24 08:56:37 ovew Exp $
-
-
+--@(#)$Id: knavetfetchbehorigheter.sql,v 1.2 2006/08/24 13:05:31 ovew Exp $
+                                                
 -- Skapat av: Henric Wollert                    
 -- Datum: 2004-05-04                            
 -- Version: 1
 -- Rutinbeteckning ??
 -- hämtar behörigheter för en knavet USER
+--Ändrat:2006-06-19 SL Bug 1318 Ändrat så att man ej returnerar null i några fält.
+
 
 DEFINE p_svar integer;
 DEFINE p_appanvappid char(18);
@@ -171,7 +173,21 @@ IF (p_userid is null) THEN
 	RETURN 0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,"NOUSER_ERR" ; -- Användaren finns ej.
 ELSE	
 
-	
+	IF (p_skapaduser IS NULL) THEN
+		LET p_skapaduser = "";
+	END IF; 
+	IF (p_anvandarenamn IS NULL) THEN
+		LET p_anvandarenamn = "";
+	END IF; 
+	IF (p_tilltalsnamn IS NULL) THEN
+		LET p_tilltalsnamn = "";
+	END IF; 
+	IF (p_fnamn IS NULL) THEN
+		LET p_fnamn = "";
+	END IF; 
+	IF (p_enamn IS NULL) THEN
+		LET p_enamn = "";
+	END IF; 
 
 	IF(p_araktiv != 'J') THEN
 		RETURN 0, -- Användaren är ej aktiv
@@ -217,6 +233,9 @@ END IF;
 
 
 -- $Log: knavetfetchbehorigheter.sql,v $
+-- Revision 1.2  2006/08/24 13:05:31  ovew
+-- k1318
+--
 -- Revision 1.1  2006/08/24 08:56:37  ovew
 -- *** empty log message ***
 --

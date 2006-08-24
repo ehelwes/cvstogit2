@@ -13,14 +13,14 @@ CREATE PROCEDURE login_knavet(p_loginnamn char(10),p_behoriguppg char(1),p_rutin
 	int,
 	datetime year to fraction(3); --Sessionsid
 
---@(#)$Id: login_knavet.sql,v 1.1 2006/08/24 08:56:39 ovew Exp $
-
+--@(#)$Id: login_knavet.sql,v 1.2 2006/08/24 13:05:31 ovew Exp $
 
 {
 -- Skapat av: Susanna Lindkvist
 -- Datum: 2002-11-20
 -- Ändrat: Perre Forsberg 2003-01-10
 -- Ändrat: Perre Forsberg 2003-09-17
+--Ändrat:2006-06-19 SL Bug 1318 Ändrat så att man ej returnerar null i några fält, förutom enhetsid,p_senastindat,p_senastutdat
 -- Version: 1
 -- Rutinbeteckning ??
 -- Kontrollerar login namn/lösenord, ej sessionshantering.
@@ -152,8 +152,18 @@ end if;
 		
 --		LET p_behorighetslista = p_behorighetslista || p_behorighetslistahelp1 || p_behorighetslistahelp2;
 	ELSE
-		LET p_behorighetslista = NULL;
+		LET p_behorighetslista = "";
 	END IF;
+		
+	IF (p_anvandarenamn IS NULL) THEN
+		LET p_anvandarenamn = "";
+	END IF; 
+	IF (p_anvandarepersnr IS NULL) THEN
+		LET p_anvandarepersnr = "";
+	END IF; 
+	IF (p_araktiv IS NULL) THEN
+		LET p_araktiv = "";
+	END IF; 
 
 
 
@@ -173,6 +183,9 @@ END IF;
 
 
 -- $Log: login_knavet.sql,v $
+-- Revision 1.2  2006/08/24 13:05:31  ovew
+-- k1318
+--
 -- Revision 1.1  2006/08/24 08:56:39  ovew
 -- knavet1.2 051220
 --
