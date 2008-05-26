@@ -34,7 +34,7 @@ create procedure fetchpersonnavet(
 	CHAR(1),	--p_status			26 nytt 20040402 HW
 	varchar(8);	--p_avregisteringsdatum		27 nytt 20050215 Perre
 
---@(#)$Id: fetchpersonnavet.sql,v 1.2 2006/08/24 13:05:31 ovew Exp $
+--@(#)$Id: fetchpersonnavet.sql,v 1.3 2008/05/26 12:47:16 informix Exp $
 	                                                                     
 -- Skapat av: Henric wollert                    
 -- Datum: 2003-10-02                            
@@ -46,6 +46,8 @@ create procedure fetchpersonnavet(
 -- Retur: 23 parametrar.
 --Ändrat:2006-06-19 SL Bug 1318 Ändrat så att man ej returnerar null i några fält, förutom datumfältet civilståndsdatum,
 --kyrkotillhorighetsdatum och avregisteringsdatum.
+-- Ändrat av: Susanna Lindkvist 
+-- Datum: 2008-05-25     Kug  2978      
 
 --Returparametrar
 DEFINE p_svar				INTEGER;		--1  
@@ -120,6 +122,8 @@ ON exception set sql_err, isam_err, error_info
 	raise exception sql_err, isam_err, error_info;
 END exception;
 
+SET LOCK MODE TO WAIT 10;
+SET ISOLATION TO DIRTY READ;
 SET LOCK MODE TO WAIT 10;
 
 --Returparametrar
@@ -465,6 +469,9 @@ ELSE
 END IF;                         
         	
 -- $Log: fetchpersonnavet.sql,v $
+-- Revision 1.3  2008/05/26 12:47:16  informix
+-- *** empty log message ***
+--
 -- Revision 1.2  2006/08/24 13:05:31  ovew
 -- k1318
 --
