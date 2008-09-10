@@ -9,7 +9,7 @@ RETURNING
 int, --p_svar
 varchar(255,0); --Behoriglista  
 
---@(#)$Id: getbehorighetenhetknavet.sql,v 1.1 2006/08/24 08:56:35 ovew Exp $
+--@(#)$Id: getbehorighetenhetknavet.sql,v 1.2 2008/09/10 09:24:07 informix Exp $
 
 
 
@@ -17,6 +17,7 @@ varchar(255,0); --Behoriglista
 -- Skapat av: Perre Forsberg
 -- Datum: 2005-02-18 (Bygger på getbehorighetenhet  
 -- Ändrat:  2004-11-26 Perre Forsberg. Ändrat så att proceduren hanterar 200 st behörigheter.
+-- Ändrat:  2008-09-10 B3676 Susanna Lindkvist Fel om fler än 100 behörigheter hämtas. Else-sats saknas
 -- Version: 1  
 -- Rutinbeteckning ?? 
 -- Felkod 1508-1514 
@@ -493,6 +494,7 @@ FOREACH
 	END IF; --98
 	END IF; --99
 	END IF; --100
+	ELSE
 	IF (p_pos < 120) THEN
 	IF (p_pos = 101) THEN
 	    LET p_behorighet[102,102] = "1";
@@ -920,6 +922,9 @@ end foreach;
 		p_behorighet;
   
 -- $Log: getbehorighetenhetknavet.sql,v $
+-- Revision 1.2  2008/09/10 09:24:07  informix
+-- k-3676
+--
 -- Revision 1.1  2006/08/24 08:56:35  ovew
 -- *** empty log message ***
 --
