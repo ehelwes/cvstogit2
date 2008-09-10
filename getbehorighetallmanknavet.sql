@@ -8,14 +8,14 @@ RETURNING
 int, --p_svar
 varchar(255,0); --Behoriglista  
 
---@(#)$Id: getbehorighetallmanknavet.sql,v 1.1 2006/08/24 08:56:34 ovew Exp $
+--@(#)$Id: getbehorighetallmanknavet.sql,v 1.2 2008/09/10 09:44:04 informix Exp $
 
 
 
   
 -- Skapat av: Perre Forsberg
 -- Datum: 2003-02-12  
--- Ändrat:  
+-- Ändrat:  2008-09-10 B3676 Susanna Lindkvist Fel om fler än 100 behörigheter hämtas. Else-sats saknas
 -- Version: 1  
 -- Rutinbeteckning ?? 
 -- Felkod 1501-1507 
@@ -490,6 +490,7 @@ FOREACH
 	END IF; --98
 	END IF; --99
 	END IF; --100
+	ELSE
 	IF (p_pos < 120) THEN
 	IF (p_pos = 101) THEN
 	    LET p_behorighet[102,102] = "1";
@@ -918,6 +919,9 @@ end foreach;
 		p_behorighet;
   
 -- $Log: getbehorighetallmanknavet.sql,v $
+-- Revision 1.2  2008/09/10 09:44:04  informix
+-- k-3676
+--
 -- Revision 1.1  2006/08/24 08:56:34  ovew
 -- *** empty log message ***
 --
