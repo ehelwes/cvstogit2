@@ -1,4 +1,5 @@
 DROP PROCEDURE login_knavet;
+
 CREATE PROCEDURE login_knavet(p_loginnamn char(10),p_behoriguppg char(1),p_rutin char(10),p_enhetsid INT,p_losenord varchar(32,1),p_system varchar(10))
 	returning 
 	int, 
@@ -13,21 +14,11 @@ CREATE PROCEDURE login_knavet(p_loginnamn char(10),p_behoriguppg char(1),p_rutin
 	int,
 	datetime year to fraction(3); --Sessionsid
 
---@(#)$Id: login_knavet.sql,v 1.2 2006/08/24 13:05:31 ovew Exp $
+--@(#)$Id: login_knavet.sql,v 1.3 2010/03/15 10:15:01 informix Exp $
 
-{
--- Skapat av: Susanna Lindkvist
--- Datum: 2002-11-20
--- Ändrat: Perre Forsberg 2003-01-10
--- Ändrat: Perre Forsberg 2003-09-17
---Ändrat:2006-06-19 SL Bug 1318 Ändrat så att man ej returnerar null i några fält, förutom enhetsid,p_senastindat,p_senastutdat
--- Version: 1
--- Rutinbeteckning ??
 -- Kontrollerar login namn/lösenord, ej sessionshantering.
-}
 
 DEFINE p_svar integer;
-
 
 DEFINE p_appanvappid char(18);
 DEFINE p_anvandareid int;
@@ -99,15 +90,6 @@ INTO	p_inloggad,
 FROM 	tanvappdata_ny
 WHERE	userid = p_loginnamn;
 
---IF (p_inloggad is not NULL) THEN
---IF (p_inloggad='J' AND p_sessionsid - p_senasteaktivitet < p_sessiontimeouttime) THEN
---	return 1002,null,null,null,null,null,null,null,null,null,null; --Användare inloggad och aktiv.
---ELIF (p_inloggad='J' AND p_sessionsid - p_senasteaktivitet >= p_sessiontimeouttime) THEN
---	LET p_senastutdat = p_senasteaktivitet + p_sessiontimeouttime;
---END IF;
---END IF;
-
-
 SELECT	p.anamn,
 	a.persnr,
 	a.araktiv,
@@ -124,6 +106,11 @@ and	a.persnr = p.persnr;
 IF (p_userid is null) THEN
 	RETURN 1004,null,null,null,null,null,null,null,null,null,null; -- Användaren finns ej.
 ELSE	
+
+IF (p_araktiv != 'J') THEN
+	RETURN 1007, -- Användaren är ej aktiv
+	NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL;
+END IF;
 
 Select count(*)   
 into p_antal
@@ -145,12 +132,6 @@ end if;
 	IF (p_behoriguppg = 'J' OR p_behoriguppg = 'j') THEN
 		EXECUTE PROCEDURE getbehorighetallman(p_userid,p_system)
 		into p_svar,p_behorighetslista;
---		EXECUTE PROCEDURE getbehorighetenhet(p_userid,p_system,0)
---		into p_svar,p_behorighetslistahelp1;
---		EXECUTE PROCEDURE getbehorighetverksamhet(p_userid,p_system,0)
---		into p_svar,p_behorighetslistahelp2;
-		
---		LET p_behorighetslista = p_behorighetslista || p_behorighetslistahelp1 || p_behorighetslistahelp2;
 	ELSE
 		LET p_behorighetslista = "";
 	END IF;
@@ -165,14 +146,12 @@ end if;
 		LET p_araktiv = "";
 	END IF; 
 
-
-
 	RETURN 
 	p_svar,
 	p_behorighetslista,
 	p_enhetsid,
 	p_loginnamn,
-        p_anvandarenamn,
+	p_anvandarenamn,
 	p_anvandarepersnr,
 	p_araktiv,
 	p_senastindat,
@@ -181,8 +160,10 @@ end if;
 	p_sessionsid;
 END IF;
 
-
 -- $Log: login_knavet.sql,v $
+-- Revision 1.3  2010/03/15 10:15:01  informix
+-- Lagt till kontroll om användaren är aktiv eller inte (kz-2329) samt rensat bort lite bortkommenterad kod.
+--
 -- Revision 1.2  2006/08/24 13:05:31  ovew
 -- k1318
 --
