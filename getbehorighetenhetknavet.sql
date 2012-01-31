@@ -1,6 +1,4 @@
-drop procedure getbehorighetenhetknavet;  
-  
-create procedure getbehorighetenhetknavet(
+create procedure "informix".getbehorighetenhetknavet_rw(
 p_userid char(10),  
 p_system char(10),
 p_enhetsid INT)  
@@ -9,7 +7,7 @@ RETURNING
 int, --p_svar
 varchar(255,0); --Behoriglista  
 
---@(#)$Id: getbehorighetenhetknavet.sql,v 1.2 2008/09/10 09:24:07 informix Exp $
+--@(#)$Id: getbehorighetenhetknavet.sql,v 1.3 2012/01/31 09:31:06 informix Exp $
 
 
 
@@ -48,7 +46,7 @@ end exception;
 SET LOCK MODE TO WAIT 10;  
   
 LET p_svar = 0;  
-LET p_behorighet = "F00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";  
+LET p_behorighet = "F00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";  
 LET p_tag = 0;	  
 LET p_pos = 0;	  
 LET p_sort = 0;	  
@@ -880,9 +878,6 @@ FOREACH
 	ELSE
 	IF (p_pos = 199) THEN
 	    LET p_behorighet[200,200] = "1";
-	ELSE
-	IF (p_pos = 200) THEN
-	    LET p_behorighet[201,201] = "1";
 	END IF; --180
 	END IF; --181
 	END IF; --182
@@ -903,7 +898,230 @@ FOREACH
 	END IF; --197
 	END IF; --198
 	END IF; --199
+	ELSE
+	IF (p_pos = 200) THEN
+	    LET p_behorighet[201,201] = "1";
+	ELSE
+	IF (p_pos = 201) THEN
+	    LET p_behorighet[202,202] = "1";
+	ELSE
+	IF (p_pos = 202) THEN
+	    LET p_behorighet[203,203] = "1";
+	ELSE
+	IF (p_pos = 203) THEN
+	    LET p_behorighet[204,204] = "1";
+	ELSE
+	IF (p_pos = 204) THEN
+	    LET p_behorighet[205,205] = "1";
+	ELSE
+	IF (p_pos = 205) THEN
+	    LET p_behorighet[206,206] = "1";
+	ELSE
+	IF (p_pos = 206) THEN
+	    LET p_behorighet[207,207] = "1";
+	ELSE
+	IF (p_pos = 207) THEN
+	    LET p_behorighet[208,208] = "1";
+	ELSE
+	IF (p_pos = 208) THEN
+	    LET p_behorighet[209,209] = "1";
+	ELSE
+	IF (p_pos = 209) THEN
+	    LET p_behorighet[210,210] = "1";
+	ELSE
+	IF (p_pos = 210) THEN
+	    LET p_behorighet[211,211] = "1";
+	ELSE
+	IF (p_pos = 211) THEN
+	    LET p_behorighet[212,212] = "1";
+	ELSE
+	IF (p_pos = 212) THEN
+	    LET p_behorighet[213,213] = "1";
+	ELSE
+	IF (p_pos = 213) THEN
+	    LET p_behorighet[214,214] = "1";
+	ELSE
+	IF (p_pos = 214) THEN
+	    LET p_behorighet[215,215] = "1";
+	ELSE
+	IF (p_pos = 215) THEN
+	    LET p_behorighet[216,216] = "1";
+	ELSE
+	IF (p_pos = 216) THEN
+	    LET p_behorighet[217,217] = "1";
+	ELSE
+	IF (p_pos = 217) THEN
+	    LET p_behorighet[218,218] = "1";
+	ELSE
+	IF (p_pos = 218) THEN
+	    LET p_behorighet[219,219] = "1";
+	ELSE
+	IF (p_pos = 219) THEN
+	    LET p_behorighet[220,220] = "1";
 	END IF; --200
+	END IF; --201
+	END IF; --202
+	END IF; --202
+	END IF; --204
+	END IF; --205
+	END IF; --206
+	END IF; --207
+	END IF; --208
+	END IF; --209
+	END IF; --210
+	END IF; --211
+	END IF; --212
+	END IF; --213
+	END IF; --214
+	END IF; --215
+	END IF; --216
+	END IF; --217
+	END IF; --218
+	END IF; --219
+	ELSE
+	IF (p_pos = 220) THEN
+	    LET p_behorighet[221,221] = "1";
+	ELSE
+	IF (p_pos = 221) THEN
+	    LET p_behorighet[222,222] = "1";
+	ELSE
+	IF (p_pos = 222) THEN
+	    LET p_behorighet[223,223] = "1";
+	ELSE
+	IF (p_pos = 223) THEN
+	    LET p_behorighet[224,224] = "1";
+	ELSE
+	IF (p_pos = 224) THEN
+	    LET p_behorighet[225,225] = "1";
+	ELSE
+	IF (p_pos = 225) THEN
+	    LET p_behorighet[226,226] = "1";
+	ELSE
+	IF (p_pos = 226) THEN
+	    LET p_behorighet[227,227] = "1";
+	ELSE
+	IF (p_pos = 227) THEN
+	    LET p_behorighet[228,228] = "1";
+	ELSE
+	IF (p_pos = 228) THEN
+	    LET p_behorighet[229,229] = "1";
+	ELSE
+	IF (p_pos = 229) THEN
+	    LET p_behorighet[230,230] = "1";
+	ELSE
+	IF (p_pos = 230) THEN
+	    LET p_behorighet[231,231] = "1";
+	ELSE
+	IF (p_pos = 231) THEN
+	    LET p_behorighet[232,232] = "1";
+	ELSE
+	IF (p_pos = 232) THEN
+	    LET p_behorighet[233,233] = "1";
+	ELSE
+	IF (p_pos = 233) THEN
+	    LET p_behorighet[234,234] = "1";
+	ELSE
+	IF (p_pos = 234) THEN
+	    LET p_behorighet[235,235] = "1";
+	ELSE
+	IF (p_pos = 235) THEN
+	    LET p_behorighet[236,236] = "1";
+	ELSE
+	IF (p_pos = 236) THEN
+	    LET p_behorighet[237,237] = "1";
+	ELSE
+	IF (p_pos = 237) THEN
+	    LET p_behorighet[238,238] = "1";
+	ELSE
+	IF (p_pos = 238) THEN
+	    LET p_behorighet[239,239] = "1";
+	ELSE
+	IF (p_pos = 239) THEN
+	    LET p_behorighet[240,240] = "1";
+	END IF; --220
+	END IF; --221
+	END IF; --222
+	END IF; --222
+	END IF; --224
+	END IF; --225
+	END IF; --226
+	END IF; --227
+	END IF; --228
+	END IF; --229
+	END IF; --230
+	END IF; --231
+	END IF; --232
+	END IF; --233
+	END IF; --234
+	END IF; --235
+	END IF; --236
+	END IF; --237
+	END IF; --238
+	END IF; --239
+	ELSE
+	IF (p_pos = 240) THEN
+	    LET p_behorighet[241,241] = "1";
+	ELSE
+	IF (p_pos = 241) THEN
+	    LET p_behorighet[242,242] = "1";
+	ELSE
+	IF (p_pos = 242) THEN
+	    LET p_behorighet[243,243] = "1";
+	ELSE
+	IF (p_pos = 243) THEN
+	    LET p_behorighet[244,244] = "1";
+	ELSE
+	IF (p_pos = 244) THEN
+	    LET p_behorighet[245,245] = "1";
+	ELSE
+	IF (p_pos = 245) THEN
+	    LET p_behorighet[246,246] = "1";
+	ELSE
+	IF (p_pos = 246) THEN
+	    LET p_behorighet[247,247] = "1";
+	ELSE
+	IF (p_pos = 247) THEN
+	    LET p_behorighet[248,248] = "1";
+	ELSE
+	IF (p_pos = 248) THEN
+	    LET p_behorighet[249,249] = "1";
+	ELSE
+	IF (p_pos = 249) THEN
+	    LET p_behorighet[250,250] = "1";
+	ELSE
+	IF (p_pos = 250) THEN
+	    LET p_behorighet[251,251] = "1";
+	ELSE
+	IF (p_pos = 251) THEN
+	    LET p_behorighet[252,252] = "1";
+	ELSE
+	IF (p_pos = 252) THEN
+	    LET p_behorighet[253,253] = "1";
+	ELSE
+	IF (p_pos = 253) THEN
+	    LET p_behorighet[254,254] = "1";
+	ELSE
+	IF (p_pos = 254) THEN
+	    LET p_behorighet[255,255] = "1";
+	END IF; --240
+	END IF; --241
+	END IF; --242
+	END IF; --242
+	END IF; --244
+	END IF; --245
+	END IF; --246
+	END IF; --247
+	END IF; --248
+	END IF; --249
+	END IF; --250
+	END IF; --251
+	END IF; --252
+	END IF; --253
+	END IF; --254
+
+	END IF; -- >240
+	END IF; -- >220
+	END IF; -- >200
 	END IF; -- >180
 	END IF; -- >160
 	END IF; -- >140
@@ -922,10 +1140,15 @@ end foreach;
 		p_behorighet;
   
 -- $Log: getbehorighetenhetknavet.sql,v $
+-- Revision 1.3  2012/01/31 09:31:06  informix
+-- *** empty log message ***
+--
 -- Revision 1.2  2008/09/10 09:24:07  informix
 -- k-3676
 --
 -- Revision 1.1  2006/08/24 08:56:35  ovew
 -- *** empty log message ***
 --
-end procedure;  
+end procedure;
+
+
