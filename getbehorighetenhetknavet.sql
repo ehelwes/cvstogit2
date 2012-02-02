@@ -1,4 +1,4 @@
-create procedure "informix".getbehorighetenhetknavet_rw(
+create procedure "informix".getbehorighetenhetknavet(
 p_userid char(10),  
 p_system char(10),
 p_enhetsid INT)  
@@ -7,7 +7,7 @@ RETURNING
 int, --p_svar
 varchar(255,0); --Behoriglista  
 
---@(#)$Id: getbehorighetenhetknavet.sql,v 1.3 2012/01/31 09:31:06 informix Exp $
+--@(#)$Id: getbehorighetenhetknavet.sql,v 1.4 2012/02/02 10:46:00 informix Exp $
 
 
 
@@ -16,6 +16,7 @@ varchar(255,0); --Behoriglista
 -- Datum: 2005-02-18 (Bygger på getbehorighetenhet  
 -- Ändrat:  2004-11-26 Perre Forsberg. Ändrat så att proceduren hanterar 200 st behörigheter.
 -- Ändrat:  2008-09-10 B3676 Susanna Lindkvist Fel om fler än 100 behörigheter hämtas. Else-sats saknas
+-- Ändrat:  2012-01-31 K6475 Rolf Wasteson Ändrat så att proceduren hanterar 254 st behörigheter.
 -- Version: 1  
 -- Rutinbeteckning ?? 
 -- Felkod 1508-1514 
@@ -1140,6 +1141,9 @@ end foreach;
 		p_behorighet;
   
 -- $Log: getbehorighetenhetknavet.sql,v $
+-- Revision 1.4  2012/02/02 10:46:00  informix
+-- *** empty log message ***
+--
 -- Revision 1.3  2012/01/31 09:31:06  informix
 -- *** empty log message ***
 --
