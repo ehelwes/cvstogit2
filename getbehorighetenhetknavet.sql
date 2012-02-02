@@ -7,7 +7,7 @@ RETURNING
 int, --p_svar
 varchar(255,0); --Behoriglista  
 
---@(#)$Id: getbehorighetenhetknavet.sql,v 1.4 2012/02/02 10:46:00 informix Exp $
+--@(#)$Id: getbehorighetenhetknavet.sql,v 1.5 2012/02/02 11:43:14 informix Exp $
 
 
 
@@ -820,6 +820,8 @@ FOREACH
 	END IF; --178
 	END IF; --179
 	ELSE
+	IF (p_pos < 200) THEN
+
 	IF (p_pos = 180) THEN
 	    LET p_behorighet[181,181] = "1";
 	ELSE
@@ -882,7 +884,7 @@ FOREACH
 	END IF; --180
 	END IF; --181
 	END IF; --182
-	END IF; --182
+	END IF; --183
 	END IF; --184
 	END IF; --185
 	END IF; --186
@@ -900,6 +902,8 @@ FOREACH
 	END IF; --198
 	END IF; --199
 	ELSE
+	IF (p_pos < 220) THEN
+
 	IF (p_pos = 200) THEN
 	    LET p_behorighet[201,201] = "1";
 	ELSE
@@ -962,7 +966,7 @@ FOREACH
 	END IF; --200
 	END IF; --201
 	END IF; --202
-	END IF; --202
+	END IF; --203
 	END IF; --204
 	END IF; --205
 	END IF; --206
@@ -980,6 +984,8 @@ FOREACH
 	END IF; --218
 	END IF; --219
 	ELSE
+	IF (p_pos < 240) THEN
+
 	IF (p_pos = 220) THEN
 	    LET p_behorighet[221,221] = "1";
 	ELSE
@@ -1042,7 +1048,7 @@ FOREACH
 	END IF; --220
 	END IF; --221
 	END IF; --222
-	END IF; --222
+	END IF; --223
 	END IF; --224
 	END IF; --225
 	END IF; --226
@@ -1141,10 +1147,7 @@ end foreach;
 		p_behorighet;
   
 -- $Log: getbehorighetenhetknavet.sql,v $
--- Revision 1.4  2012/02/02 10:46:00  informix
--- *** empty log message ***
---
--- Revision 1.3  2012/01/31 09:31:06  informix
+-- Revision 1.5  2012/02/02 11:43:14  informix
 -- *** empty log message ***
 --
 -- Revision 1.2  2008/09/10 09:24:07  informix
