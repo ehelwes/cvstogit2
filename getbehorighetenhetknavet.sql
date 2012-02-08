@@ -1,3 +1,5 @@
+DROP PROCEDURE getbehorighetenhetknavet;
+
 create procedure "informix".getbehorighetenhetknavet(
 p_userid char(10),  
 p_system char(10),
@@ -7,7 +9,7 @@ RETURNING
 int, --p_svar
 varchar(255,0); --Behoriglista  
 
---@(#)$Id: getbehorighetenhetknavet.sql,v 1.5 2012/02/02 11:43:14 informix Exp $
+--@(#)$Id: getbehorighetenhetknavet.sql,v 1.6 2012/02/08 10:31:03 idalbe Exp $
 
 
 
@@ -1147,6 +1149,9 @@ end foreach;
 		p_behorighet;
   
 -- $Log: getbehorighetenhetknavet.sql,v $
+-- Revision 1.6  2012/02/08 10:31:03  idalbe
+-- added drop procedure
+--
 -- Revision 1.5  2012/02/02 11:43:14  informix
 -- *** empty log message ***
 --
