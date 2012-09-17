@@ -13,7 +13,7 @@ create procedure fetchpersonnavet(
 	VARCHAR(60),	--p_efternamn           	6
 	VARCHAR(40),	--p_mellannamn			7        
 	VARCHAR(36),	--p_aviseringsnamn		8
-	VARCHAR(35),	--p_fastighet			9
+	VARCHAR(50),	--p_fastighet			9
 	CHAR(2),	--p_avregistreringsorsak	10
 	CHAR(6),	--p_fblkf			11	
 	CHAR(6),	--p_kyrkolkf			12
@@ -34,7 +34,7 @@ create procedure fetchpersonnavet(
 	CHAR(1),	--p_status			26 nytt 20040402 HW
 	varchar(8);	--p_avregisteringsdatum		27 nytt 20050215 Perre
 
---@(#)$Id: fetchpersonnavet.sql,v 1.3 2008/05/26 12:47:16 informix Exp $
+--@(#)$Id: fetchpersonnavet.sql,v 1.4 2012/09/17 12:40:08 idalbe Exp $
 	                                                                     
 -- Skapat av: Henric wollert                    
 -- Datum: 2003-10-02                            
@@ -58,7 +58,7 @@ DEFINE p_tilltalsnamn			VARCHAR(80);    	--5
 DEFINE p_efternamn           		VARCHAR(60);    	--6  
 DEFINE p_mellannamn			VARCHAR(40);    	--7  
 DEFINE p_aviseringsnamn			VARCHAR(36);    	--8  
-DEFINE p_fastighet			VARCHAR(35);    	--9  
+DEFINE p_fastighet			VARCHAR(50);    	--9  
 DEFINE p_avregistreringsorsak		CHAR(2);        	--10 
 DEFINE p_fblkf				CHAR(6);		--11	
 DEFINE p_kyrkolkf			CHAR(6);		--12 
@@ -469,6 +469,9 @@ ELSE
 END IF;                         
         	
 -- $Log: fetchpersonnavet.sql,v $
+-- Revision 1.4  2012/09/17 12:40:08  idalbe
+-- justerat fastighetsfältet till 50 tecken, k6684
+--
 -- Revision 1.3  2008/05/26 12:47:16  informix
 -- *** empty log message ***
 --
