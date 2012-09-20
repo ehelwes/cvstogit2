@@ -34,7 +34,7 @@ create procedure fetchpersonnavet(
 	CHAR(1),	--p_status			26 nytt 20040402 HW
 	varchar(8);	--p_avregisteringsdatum		27 nytt 20050215 Perre
 
---@(#)$Id: fetchpersonnavet.sql,v 1.4 2012/09/17 12:40:08 idalbe Exp $
+--@(#)$Id: fetchpersonnavet.sql,v 1.5 2012/09/20 09:15:08 idersv Exp $
 	                                                                     
 -- Skapat av: Henric wollert                    
 -- Datum: 2003-10-02                            
@@ -250,7 +250,7 @@ IF(p_civilstand is NULL) THEN
 	LET p_civilstand = " "; 
 END IF;
 
-IF ( (DBINFO("SQLCA.sqlerrd2") != 1) OR (p_avregistreringsorsak='GN') ) THEN 
+IF ( (DBINFO("SQLCA.sqlerrd2") != 1) OR (p_avregistreringsorsak in ('GN','GS')) ) THEN 
 	RETURN	0, --Ingen träff i fetchpersonnavet. 
 		" ",		--2 
 		p_persnr_ut,    --3 
@@ -469,6 +469,9 @@ ELSE
 END IF;                         
         	
 -- $Log: fetchpersonnavet.sql,v $
+-- Revision 1.5  2012/09/20 09:15:08  idersv
+-- Kugg 6833 -Samtliga avregistreringsorsaker, övriga delar
+--
 -- Revision 1.4  2012/09/17 12:40:08  idalbe
 -- justerat fastighetsfältet till 50 tecken, k6684
 --
